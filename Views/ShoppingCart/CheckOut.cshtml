@@ -1,0 +1,119 @@
+﻿@using MyProject_MVC.Models
+@{
+    ViewBag.Title = "CheckOut";
+}
+<h2>Check Out</h2>
+@{
+    if (Session["Cart"] != null)
+    {
+        using (Html.BeginForm("UpdateCart", "ShoppingCart", FormMethod.Post))
+        {
+            <table class="table">
+                <tr>
+                    <td>Name</td>
+                    <td>Quantity</td>
+                    <td>Price</td>
+                    <td>Sub ToTal</td>
+                    <td>Action</td>
+                </tr>
+                @foreach (var cart in (List<Cart>)Session["Cart"])
+                {
+                    double p = Convert.ToDouble(cart.Product.ProPrice);
+                    int q = Convert.ToInt32(cart.Quantity);
+                    double subtotal = p * q;
+                    <tr>
+                        <td>@cart.Product.ProName</td>
+                        <td>
+                            <input type="text" name="quatily" class="quantily" value="@cart.Quantity" />
+                        </td>
+                        <td>@Html.FormatValue(cart.Product.ProPrice, "{0:C}")</td>
+                        <td>@Html.FormatValue(subtotal, "{0:C}")</td>
+                        <td>
+                            @Html.ActionLink("Detele", "RemoveItem", "ShoppingCart", new { Id = cart.Product.ProId })
+                        </td>
+                    </tr>
+                }
+                <tr>
+                    @{
+                        List<Cart> temp = (List<Cart>)Session["Cart"];
+                        var total = temp.Sum(x => x.Quantity * x.Product.ProPrice);
+                    }
+                    <td colspan="2">
+
+                        &nbsp;
+
+                    </td>
+                    <td align="right">Total</td>
+                    <td colspan="2">
+                        @Html.FormatValue(total, "{0:C}")
+                    </td>
+                </tr>
+            </table>
+        }
+
+    }
+    else
+    {
+        <h4>No Item In Shopping Cart in your !</h4>
+    }
+}
+<h3>Customer Information</h3>
+@using (Html.BeginForm("ProcessOder", "ShoppingCart", FormMethod.Post, new { id = "customer-form" }))
+{
+    <div class="form">
+        <hr />
+        <div class="form-group">
+            <label class="custom-control-label col-md-2 ">Customer Name</label>
+            <div class="col-md-10">
+                <input type="text" name="cusName" class="form-control" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="custom-control-label col-md-2 ">Customer Phone</label>
+            <div class="col-md-10">
+                <input type="text" name="cusPhone" class="form-control" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="custom-control-label col-md-2 ">Customer Email</label>
+            <div class="col-md-10">
+                <input type="text" name="cusEmail" class="form-control" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="custom-control-label col-md-2 ">Customer Address</label>
+            <div class="col-md-10">
+                <input type="text" name="cusAddress" class="form-control" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-10 col-md-offset-2">
+                <input type="submit" value="Process Order" class="btn btn-danger" />
+            </div>
+        </div>
+    </div>
+
+}
+<script type="text/javascript">
+    $("#customer-form").validate({
+        rules: {
+            cusName: {
+                required: true
+            },
+            cusPhone: {
+                required: true
+            },
+            cusEmail: {
+                required: true
+            },
+            cusAddress: {
+                required: true
+            }
+        }
+    });
+</script>
+
+
+
+

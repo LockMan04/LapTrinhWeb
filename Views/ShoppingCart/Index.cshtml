@@ -1,0 +1,74 @@
+﻿@using MyProject_MVC.Models
+@{
+    ViewBag.Title = "Shopping";
+}
+
+<h2>Shopping Cart</h2>
+@{
+    if (Session["Cart"] != null)
+    {
+        using (Html.BeginForm("UpdateCart", "ShoppingCart", FormMethod.Post))
+        {
+            <table class="table">
+                <tr>
+                    <td>Name</td>
+                    <td>Quantity</td>
+                    <td>Price</td>
+                    <td>Sub ToTal</td>
+                    <td>Action</td>
+                </tr>
+                @foreach (var cart in (List<Cart>)Session["Cart"])
+                {
+                    double p = Convert.ToDouble(cart.Product.ProPrice);
+                    int q = Convert.ToInt32(cart.Quantity);
+                    double subtotal = p * q;
+                    <tr>
+                        <td>@cart.Product.ProName</td>
+                        <td>
+                            <input type="text" name="quatily" class="quantily" value="@cart.Quantity" />
+                        </td>
+                        <td>@Html.FormatValue(cart.Product.ProPrice, "{0:N0} VNĐ")</td>
+                        <td>@Html.FormatValue(subtotal, "{0:N0} VNĐ")</td>
+                        <td>
+                            @Html.ActionLink("Detele", "RemoveItem", "ShoppingCart", new { Id = cart.Product.ProId })
+                        </td>
+                    </tr>
+                }
+                <tr>
+                    @{
+                        List<Cart> temp = (List<Cart>)Session["Cart"];
+                        var total = temp.Sum(x => x.Quantity * x.Product.ProPrice);
+                    }
+                    <td colspan="2">
+                        @Html.ActionLink("Continue To Shopping", "Index", "Product")
+                        &nbsp;@Html.ActionLink("Empty Cart", "ClearCart", "ShoppingCart")
+                        &nbsp;@Html.ActionLink("CheckOut", "CheckOut", "ShoppingCart")
+                        <span id="errmsg" style="color:red"></span>
+                    </td>
+                    <td align="right">Total</td>
+                    <td colspan="2">
+                        @Html.FormatValue(total, "{0:N0} VNĐ")
+                    </td>
+                </tr>
+            </table>
+        }
+
+    }
+    else
+    {
+        <h4>No Item In Shopping Cart in your !</h4>
+    }
+}
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".quantily").keypress(function (e) {
+            if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                $("#errmsg").html("Enter digits only!").show().fedeOut("slow");
+                return false;
+            }
+        });
+    });
+</script>
+
+
+

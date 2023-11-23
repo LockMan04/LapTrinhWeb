@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ModelsStoreContainer" CdmEntityContainer="ProductDbContext">
+    <EntitySetMapping Name="Categories">
+      <EntityTypeMapping TypeName="Models.Category">
+        <MappingFragment StoreEntitySet="Category">
+          <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+          <ScalarProperty Name="CatName" ColumnName="CatName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Orders">
+      <EntityTypeMapping TypeName="Models.Order">
+        <MappingFragment StoreEntitySet="Order">
+          <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+          <ScalarProperty Name="OrderName" ColumnName="OrderName" />
+          <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+          <ScalarProperty Name="PaymentType" ColumnName="PaymentType" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+          <ScalarProperty Name="CustomerPhone" ColumnName="CustomerPhone" />
+          <ScalarProperty Name="CustomerEmail" ColumnName="CustomerEmail" />
+          <ScalarProperty Name="CustomerAddress" ColumnName="CustomerAddress" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OrderDetails">
+      <EntityTypeMapping TypeName="Models.OrderDetail">
+        <MappingFragment StoreEntitySet="OrderDetail">
+          <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+          <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Products">
+      <EntityTypeMapping TypeName="Models.Product">
+        <MappingFragment StoreEntitySet="Product">
+          <ScalarProperty Name="ProId" ColumnName="ProId" />
+          <ScalarProperty Name="ProName" ColumnName="ProName" />
+          <ScalarProperty Name="ProImage" ColumnName="ProImage" />
+          <ScalarProperty Name="ProPrice" ColumnName="ProPrice" />
+          <ScalarProperty Name="TypeOf" ColumnName="TypeOf" />
+          <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="Models.User">
+        <MappingFragment StoreEntitySet="User">
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="UserPassword" ColumnName="UserPassword" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Product_Category">
+      <EntityTypeMapping TypeName="Models.Product_Category">
+        <MappingFragment StoreEntitySet="Product_Category">
+          <ScalarProperty Name="ProId" ColumnName="ProId" />
+          <ScalarProperty Name="ProName" ColumnName="ProName" />
+          <ScalarProperty Name="ProImage" ColumnName="ProImage" />
+          <ScalarProperty Name="ProPrice" ColumnName="ProPrice" />
+          <ScalarProperty Name="TypeOf" ColumnName="TypeOf" />
+          <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+          <ScalarProperty Name="CatName" ColumnName="CatName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

@@ -1,0 +1,46 @@
+﻿@model IEnumerable<MyProject_MVC.Models.Product_Category>
+@{
+    ViewBag.Title = "Sale";
+    Random x = new Random();
+}
+
+<section class="product spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-5">
+                @Html.Partial("_SidebarLayout")
+                <div class="col-lg-9 col-md-7">
+                    <div class="product__discount">
+                        <div class="section-title product__discount__title">
+                            <h2>Sale Off</h2>
+                        </div>
+                        <div class="row">
+                            @foreach (var item in Model.OrderBy(p => Guid.NewGuid()).Take(12))
+                            {
+                                int randomNumber = x.Next(10, 81);
+                                <div class="col-lg-4">
+                                    <div class="product__discount__item">
+                                        <div class="product__discount__item__pic set-bg"
+                                             data-setbg="@item.ProImage">
+                                            <div class="product__discount__percent">@(randomNumber)%</div>
+                                            <ul class="product__item__pic__hover">
+                                                <li><a href="#"><i class="fa fa-heart"></i></a></li>
+
+                                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="product__discount__item__text">
+                                            <span>@item.ProName</span>
+                                            <h5><a href="@Url.Action("Details", "Products", new { id = item.ProId })">@item.CatName</a></h5>
+                                            <div class="product__item__price">@(item.ProPrice *(100 - randomNumber) / 100)đ<span>@item.ProPrice</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</section>
+<!-- Product Section End -->

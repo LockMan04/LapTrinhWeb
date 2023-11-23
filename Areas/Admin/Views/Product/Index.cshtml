@@ -1,0 +1,56 @@
+﻿@model IEnumerable<MyProject_MVC.Models.Product>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ProName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProImage)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProPrice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TypeOf)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Category.CatName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProImage)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProPrice)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TypeOf)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Category.CatName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ProId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ProId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ProId })
+        </td>
+    </tr>
+}
+
+</table>

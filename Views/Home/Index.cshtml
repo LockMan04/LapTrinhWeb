@@ -1,0 +1,211 @@
+﻿@model IEnumerable<MyProject_MVC.Models.Product_Category>
+@{
+    ViewBag.Title = "Home";
+}
+<!-- Hero Section Begin -->
+<section class="hero">
+    <div class="container">
+        <div class="hero__item set-bg" data-setbg="/images/logo/banner.jpg">
+            <div class="hero__text">
+                <span>Gift Nike</span>
+                <h2 class="text-white">Gift That<br />Move you</h2>
+                <p class="text-white">This year's gift. Next year's greatness</p>
+                <a href="#" class="primary-btn">Shop</a>
+                <a href="#" class="primary-btn">Explore</a>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Hero Section End -->
+<!-- Categories Section Begin -->
+<section class="categories">
+    <div class="container">
+        <div class="row">
+            <div class="categories__slider owl-carousel">
+                @foreach (var item in Model.Where(p => p.CategoryId == 0))
+                {
+                    <div class="col-lg-3">
+                        <div class="categories__item set-bg" data-setbg="@item.ProImage">
+                            <h5>@Html.ActionLink(@item.ProName, "Details", "Products", new { id = item.ProId }, null)</h5>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Categories Section End -->
+<!-- Featured Section Begin -->
+<section class="featured spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section-title">
+                    <h2>Featured Product</h2>
+                </div>
+                <div class="featured__controls">
+                    <ul>
+                        <li class="active" data-filter="*">All</li>
+                        <li data-filter=".Hoodies">Hoodies & Sweatshirts</li>
+                        <li data-filter=".Shorts">Shorts</li>
+                        <li data-filter=".Jackets">Jackets</li>
+                        <li data-filter=".Tracksuits">Tracksuits</li>
+                        <li data-filter=".Shoes">Shoes</li>
+                        <li data-filter=".Socks">Socks</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row featured__filter">
+            @foreach (var item in Model.OrderBy(p => Guid.NewGuid()).Take(12))
+            {
+                <div class="col-lg-3 col-md-4 col-sm-6 mix @item.CatName">
+                    <div class="featured__item">
+                        <div class="featured__item__pic set-bg" data-setbg="@item.ProImage">
+                            <ul class="featured__item__pic__hover">
+                                <li><a onclick="showFavotiteToast();"><i class="fa fa-heart"></i></a></li>
+                                <li><a onclick="showSuccessToast();"><i class="fa fa-shopping-cart"></i></a></li>
+                            </ul>
+                        </div>
+                        <div class="featured__item__text">
+                            <h6><a href="@Url.Action("Details", "Products",new {id = item.ProId })">@item.ProName</a></h6>
+                            <h5>@(item.ProPrice)đ</h5>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+<!-- Featured Section End -->
+<!-- Banner Begin -->
+<div class="banner">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="banner__pic">
+                    <img src="~/images/home/banner2.jpg" alt="">
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="banner__pic">
+                    <img src="~/images/home/banner3.jpg" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Banner End -->
+<!-- Latest Product Section Begin -->
+<section class="latest-product spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-6">
+                <div class="latest-product__text">
+                    <h4>Latest Products</h4>
+                    <div class="latest-product__slider owl-carousel">
+                        <div class="latest-prdouct__slider__item">
+                            @foreach (var item in Model.OrderBy(p => Guid.NewGuid()).Take(3))
+                            {
+                                <a href="@Url.Action("Details", "Products", new { id = item.ProId})" class="latest-product__item">
+                                    <div class="latest-product__item__pic">
+                                        <img src="@item.ProImage" alt="">
+                                    </div>
+                                    <div class="latest-product__item__text">
+                                        <h6>@item.ProName</h6>
+                                        <span>@(item.ProPrice)đ</span>
+                                    </div>
+                                </a>
+                            }
+                        </div>
+                        <div class="latest-prdouct__slider__item">
+                            @foreach (var item in Model.OrderBy(p => Guid.NewGuid()).Take(3))
+                            {
+                                <a href="@Url.Action("Details", "Products", new {id = item.ProId})" class="latest-product__item">
+                                    <div class="latest-product__item__pic">
+                                        <img src="@item.ProImage" alt="">
+                                    </div>
+                                    <div class="latest-product__item__text">
+                                        <h6>@item.ProName</h6>
+                                        <span>@(item.ProPrice)đ</span>
+                                    </div>
+                                </a>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="latest-product__text">
+                    <h4>Top Rated Products</h4>
+                    <div class="latest-product__slider owl-carousel">
+                        <div class="latest-prdouct__slider__item">
+                            @foreach (var item in Model.OrderBy(p => Guid.NewGuid()).Take(3))
+                            {
+                                <a href="@Url.Action("Details", "Products", new {id = item.ProId})" class="latest-product__item">
+                                    <div class="latest-product__item__pic">
+                                        <img src="@item.ProImage" alt="">
+                                    </div>
+                                    <div class="latest-product__item__text">
+                                        <h6>@item.ProName</h6>
+                                        <span>@(item.ProPrice)đ</span>
+                                    </div>
+                                </a>
+                            }
+                        </div>
+                        <div class="latest-prdouct__slider__item">
+                            @foreach (var item in Model.OrderBy(p => Guid.NewGuid()).Take(3))
+                            {
+                                <a href="@Url.Action("Details", "Products", new {id = item.ProId})" class="latest-product__item">
+                                    <div class="latest-product__item__pic">
+                                        <img src="@item.ProImage" alt="">
+                                    </div>
+                                    <div class="latest-product__item__text">
+                                        <h6>@item.ProName</h6>
+                                        <span>@(item.ProPrice)đ</span>
+                                    </div>
+                                </a>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="latest-product__text">
+                    <h4>Review Products</h4>
+                    <div class="latest-product__slider owl-carousel">
+                        <div class="latest-prdouct__slider__item">
+                            @foreach (var item in Model.OrderBy(p => Guid.NewGuid()).Take(3))
+                            {
+                                <a href="@Url.Action("Details", "Products", new {id = item.ProId})" class="latest-product__item">
+                                    <div class="latest-product__item__pic">
+                                        <img src="@item.ProImage" alt="">
+                                    </div>
+                                    <div class="latest-product__item__text">
+                                        <h6>@item.ProName</h6>
+                                        <span>@(item.ProPrice)đ</span>
+                                    </div>
+                                </a>
+                            }
+                        </div>
+                        <div class="latest-prdouct__slider__item">
+                            @foreach (var item in Model.OrderBy(p => Guid.NewGuid()).Take(3))
+                            {
+                                <a href="@Url.Action("Details", "Products", new {id = item.ProId})" class="latest-product__item">
+                                    <div class="latest-product__item__pic">
+                                        <img src="@item.ProImage" alt="">
+                                    </div>
+                                    <div class="latest-product__item__text">
+                                        <h6>@item.ProName</h6>
+                                        <span>@(item.ProPrice)đ</span>
+                                    </div>
+                                </a>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Latest Product Section End -->
