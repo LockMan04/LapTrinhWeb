@@ -2,98 +2,146 @@
 @{
     ViewBag.Title = "CheckOut";
 }
-<h2>Check Out</h2>
+
 @{
     if (Session["Cart"] != null)
     {
         using (Html.BeginForm("UpdateCart", "ShoppingCart", FormMethod.Post))
         {
-            <table class="table">
-                <tr>
-                    <td>Name</td>
-                    <td>Quantity</td>
-                    <td>Price</td>
-                    <td>Sub ToTal</td>
-                    <td>Action</td>
-                </tr>
-                @foreach (var cart in (List<Cart>)Session["Cart"])
-                {
-                    double p = Convert.ToDouble(cart.Product.ProPrice);
-                    int q = Convert.ToInt32(cart.Quantity);
-                    double subtotal = p * q;
-                    <tr>
-                        <td>@cart.Product.ProName</td>
-                        <td>
-                            <input type="text" name="quatily" class="quantily" value="@cart.Quantity" />
-                        </td>
-                        <td>@Html.FormatValue(cart.Product.ProPrice, "{0:C}")</td>
-                        <td>@Html.FormatValue(subtotal, "{0:C}")</td>
-                        <td>
-                            @Html.ActionLink("Detele", "RemoveItem", "ShoppingCart", new { Id = cart.Product.ProId })
-                        </td>
-                    </tr>
-                }
-                <tr>
-                    @{
-                        List<Cart> temp = (List<Cart>)Session["Cart"];
-                        var total = temp.Sum(x => x.Quantity * x.Product.ProPrice);
-                    }
-                    <td colspan="2">
-
-                        &nbsp;
-
-                    </td>
-                    <td align="right">Total</td>
-                    <td colspan="2">
-                        @Html.FormatValue(total, "{0:C}")
-                    </td>
-                </tr>
-            </table>
+            <section class="shoping-cart spad">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="shoping__cart__table">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th class="shoping__product">Name</th>
+                                            <th>Price</th>
+                                            <th>Quantity</th>
+                                            <th>Total</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var cart in (List<Cart>)Session["Cart"])
+                                        {
+                                            double p = Convert.ToDouble(cart.Product.ProPrice);
+                                            int q = Convert.ToInt32(cart.Quantity);
+                                            double subtotal = p * q;
+                                            <tr>
+                                                <td class="shoping__cart__item">
+                                                    <img src="@cart.Product.ProImage" alt="" height="100px" width="100px">
+                                                    <h5>@cart.Product.ProName</h5>
+                                                </td>
+                                                <td class="shoping__cart__price">
+                                                    @(cart.Product.ProPrice)đ
+                                                </td>
+                                                <td class="shoping__cart__quantity">
+                                                    <div class="quantity">
+                                                        <div class="pro-qty">
+                                                            <input type="number" name="quatily" class="quantily" value="@cart.Quantity" />
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td class="shoping__cart__total">
+                                                    @(subtotal).000đ
+                                                </td>
+                                                <td class="shoping__cart__item__close">
+                                                    @Html.ActionLink("Delete", "RemoveItem", "ShoppingCart", new { Id = cart.Product.ProId }, new { onclick = "return confirm('Bạn có chắc muốn xóa sản phẩm này ?');" })
+                                                </td>
+                                            </tr>
+                                        }
+                                        <tr>
+                                            @{
+                                                List<Cart> temp = (List<Cart>)Session["Cart"];
+                                                var total = temp.Sum(x => x.Quantity * x.Product.ProPrice);
+                                            }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="shoping__cart__btns">
+                                <a href="@Url.Action("Index", "Products")" class="primary-btn cart-btn text-light" style="background-color: #0099e6;">CONTINUE SHOPPING</a>
+                                <input type="submit" value="Update Cart" class="primary-btn cart-btn cart-btn-right" />
+                            </div>
+                        </div>
+                        @*<div class="col-lg-6">
+                            <div class="shoping__continue">
+                                <div class="shoping__discount">
+                                    <h5>Discount Codes</h5>
+                                    <form action="#">
+                                        <input type="text" placeholder="Enter your coupon code" style="border: 1px solid #ccc; padding: 10px; min-width: 250px;">
+                                        <button type="submit" class="site-btn">APPLY COUPON</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>*@
+                        <div class="col-lg-6 centered">
+                            <div class="shoping__checkout">
+                                <h5>Cart Total</h5>
+                                <ul>
+                                    <li>Total <span>@(total)đ</span></li>
+                                </ul>
+                                <a href="@Url.Action("CheckOut", "ShoppingCart")" class="primary-btn">PROCEED TO CHECKOUT</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
         }
 
+        <h2 class="text-center">Customer Information</h2>
+        using (Html.BeginForm("ProcessOder", "ShoppingCart", FormMethod.Post, new { id = "customer-form" }))
+        {
+            <div class="container-sm">
+
+                <div class="form w-50 centered">
+                    <hr />
+                    <div class="form-group">
+                        <label class="ml-3">Customer Name</label>
+                        <div class="col-md-10">
+                            <input type="text" name="cusName" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="ml-3">Customer Phone</label>
+                        <div class="col-md-10">
+                            <input type="text" name="cusPhone" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="ml-3">Customer Email</label>
+                        <div class="col-md-10">
+                            <input type="text" name="cusEmail" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="ml-3">Customer Address</label>
+                        <div class="col-md-10">
+                            <input type="text" name="cusAddress" class="form-control" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-10 col-md-offset-2">
+                            <input type="submit" value="Process Order" class="btn btn-danger" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
     }
+
+
+
     else
     {
-        <h4>No Item In Shopping Cart in your !</h4>
+        <h4 class="text-center py-4">No Item In Shopping Cart in your !</h4>
     }
-}
-<h3>Customer Information</h3>
-@using (Html.BeginForm("ProcessOder", "ShoppingCart", FormMethod.Post, new { id = "customer-form" }))
-{
-    <div class="form">
-        <hr />
-        <div class="form-group">
-            <label class="custom-control-label col-md-2 ">Customer Name</label>
-            <div class="col-md-10">
-                <input type="text" name="cusName" class="form-control" />
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="custom-control-label col-md-2 ">Customer Phone</label>
-            <div class="col-md-10">
-                <input type="text" name="cusPhone" class="form-control" />
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="custom-control-label col-md-2 ">Customer Email</label>
-            <div class="col-md-10">
-                <input type="text" name="cusEmail" class="form-control" />
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="custom-control-label col-md-2 ">Customer Address</label>
-            <div class="col-md-10">
-                <input type="text" name="cusAddress" class="form-control" />
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-10 col-md-offset-2">
-                <input type="submit" value="Process Order" class="btn btn-danger" />
-            </div>
-        </div>
-    </div>
-
 }
 <script type="text/javascript">
     $("#customer-form").validate({

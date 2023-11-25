@@ -16,6 +16,10 @@ namespace MyProject_MVC.Controllers
         // GET: ShoppingCart
         public ActionResult Index()
         {
+            int totalQuantity = 0;
+            List<Cart> cartItems = new List<Cart>();
+            totalQuantity = cartItems.Sum(item => item.Quantity);
+            ViewBag.CartItemCount = totalQuantity;
             return View();
         }
 
@@ -43,7 +47,7 @@ namespace MyProject_MVC.Controllers
                     ListCart[check].Quantity++;
                 Session[strCart] = ListCart;
             }
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "ShoppingCart");
         }
 
         private int IsExistingCheck(int? id)

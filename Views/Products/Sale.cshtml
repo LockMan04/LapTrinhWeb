@@ -24,9 +24,8 @@
                                              data-setbg="@item.ProImage">
                                             <div class="product__discount__percent">@(randomNumber)%</div>
                                             <ul class="product__item__pic__hover">
-                                                <li><a href="#"><i class="fa fa-heart"></i></a></li>
-
-                                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                                                <li><a class="error" data-product-id="@item.ProId"><i class="fa fa-heart"></i></a></li>
+                                                <li><a class="success" data-product-id="@item.ProId"><i class="fa fa-shopping-cart"></i></a></li>
                                             </ul>
                                         </div>
                                         <div class="product__discount__item__text">

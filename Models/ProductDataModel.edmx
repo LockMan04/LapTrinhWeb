@@ -53,6 +53,7 @@
           </Key>
           <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserName" Type="varchar" MaxLength="50" />
+          <Property Name="UserEmail" Type="nvarchar" MaxLength="100" />
           <Property Name="UserPassword" Type="varchar" MaxLength="255" />
         </EntityType>
         <!--Errors Found During Generation:
@@ -195,6 +196,7 @@ warning 6002: The table/view 'Nike.dbo.Product_Category' does not have a primary
           </Key>
           <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UserEmail" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="UserPassword" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Product_Category">
@@ -322,6 +324,7 @@ warning 6002: The table/view 'Nike.dbo.Product_Category' does not have a primary
               <MappingFragment StoreEntitySet="User">
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="UserEmail" ColumnName="UserEmail" />
                 <ScalarProperty Name="UserPassword" ColumnName="UserPassword" />
               </MappingFragment>
             </EntityTypeMapping>

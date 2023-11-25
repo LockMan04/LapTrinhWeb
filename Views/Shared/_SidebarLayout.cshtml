@@ -3,16 +3,11 @@
     <div class="sidebar__item">
         <h4>Department</h4>
         <ul>
-            <li><a href="#">Shoes</a></li>
-            <li><a href="#">Jackets</a></li>
-            <li><a href="#">Hoodies & Sweatshirts</a></li>
-            <li><a href="#">Trousers & Tights</a></li>
-            <li><a href="#">Shorts</a></li>
-            <li><a href="#">Top & T-Shirts</a></li>
-            <li><a href="#">Comperssion & Baselayer</a></li>
-            <li><a href="#">Tracksuits</a></li>
-            <li><a href="#">Socks</a></li>
-            <li><a href="#">Accessories & Equipment</a></li>
+            @foreach (var item in Model)
+            {
+                @*<li><a href="@Url.Action("ProductsByCategory", "Products", new {id = item.CategoryId}, null)">@item.CatName</a></li>*@
+
+            }
         </ul>
     </div>
     <div class="sidebar__item">
@@ -102,7 +97,7 @@
         <div class="latest-product__text">
             <h4>Latest Products</h4>
             <div class="latest-product__slider owl-carousel">
-                <div class="latest-prdouct__slider__item">
+                @*<div class="latest-prdouct__slider__item">
                     @foreach (var item in Model.OrderBy(p => Guid.NewGuid()).Take(3))
                     {
                         <a href="#" class="latest-product__item">
@@ -129,7 +124,7 @@
                             </div>
                         </a>
                     }
-                </div>
+                </div>*@
             </div>
         </div>
     </div>

@@ -51,6 +51,7 @@
         <MappingFragment StoreEntitySet="User">
           <ScalarProperty Name="UserId" ColumnName="UserId" />
           <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="UserEmail" ColumnName="UserEmail" />
           <ScalarProperty Name="UserPassword" ColumnName="UserPassword" />
         </MappingFragment>
       </EntityTypeMapping>

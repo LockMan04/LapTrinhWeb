@@ -24,6 +24,7 @@
 </head>
 
 <body>
+    <div class="notifications"></div>
     <!-- Page Preloder -->
     <div id="preloder">
         <div class="loader"></div>
@@ -37,13 +38,22 @@
         <div class="humberger__menu__cart">
             <ul>
                 <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
-                <li><a href="@Url.Action("Shopping_Cart", "Home")"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
+                <li><a href="@Url.Action("Index", "ShoppingCart")"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
             </ul>
             <div class="header__cart__price">item: <span>15.000.000đ</span></div>
         </div>
         <div class="humberger__menu__widget">
             <div class="header__top__right__auth">
-                <a href="@Url.Action("Login", "User")"><i class="fa fa-user"></i> Login</a>
+                @if (Session["idUser"] != null)
+                {
+                    <a href="@Url.Action("Index", "Admin")">Admin</a>
+                    <a href="@Url.Action("Logout", "User")">Admin</a>
+
+                }
+                else
+                {
+                    <a href="@Url.Action("Login", "User")"><i class="fa fa-user"></i> Login</a>
+                }
             </div>
         </div>
         <nav class="humberger__menu__nav mobile-menu">
@@ -92,7 +102,16 @@
                                 <a href="#"><i class="fa fa-pinterest-p"></i></a>
                             </div>
                             <div class="header__top__right__auth">
-                                <a href="@Url.Action("Login", "User")"><i class="fa fa-user"></i> Login</a>
+                                @if (Session["idUser"] != null)
+                                {
+                                    <a href="@Url.Action("Index", "Admin")">Admin</a>
+                                    <a href="@Url.Action("Logout", "User")">Logout</a>
+
+                                }
+                                else
+                                {
+                                    <a href="@Url.Action("Login", "User")"><i class="fa fa-user"></i> Login</a>
+                                }
                             </div>
                         </div>
                     </div>
@@ -114,6 +133,9 @@
                             <li>@Html.ActionLink("Sale", "Sale", "Products")</li>
                             <li>@Html.ActionLink("Page", "Sale", "Products")</li>
                             <li>@Html.ActionLink("Contact", "Index", "Home")</li>
+                            <li>
+                                @*@Html.ActionLink("Go to Admin", "Index", "Category",null, "Admin")*@
+                            </li>
                         </ul>
                     </nav>
                 </div>
@@ -121,7 +143,7 @@
                     <div class="header__cart">
                         <ul>
                             <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
-                            <li><a href="@Url.Action("Shopping_Cart", "Home")"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
+                            <li><a href="@Url.Action("Index", "ShoppingCart")"><i class="fa fa-shopping-bag"></i> <span>@ViewBag.CartItemCount</span></a></li>
                         </ul>
                         <div class="header__cart__price">item: <span>15.000.000đ</span></div>
                     </div>
@@ -177,8 +199,6 @@
                             </div>
                         </div>
                     </div>
-
-
                 </div>
             </div>
         </div>
@@ -253,9 +273,7 @@
     <script src="~/js/mixitup.min.js"></script>
     <script src="~/js/owl.carousel.min.js"></script>
     <script src="~/js/main.js"></script>
-
-
-
+    <script src="~/js/toast.js"></script>
 </body>
 
 </html>

@@ -10,8 +10,8 @@
                 <span>Gift Nike</span>
                 <h2 class="text-white">Gift That<br />Move you</h2>
                 <p class="text-white">This year's gift. Next year's greatness</p>
-                <a href="#" class="primary-btn">Shop</a>
-                <a href="#" class="primary-btn">Explore</a>
+                <a href="@Url.Action("Index", "Products")" class="primary-btn">Shop</a>
+                <a href="#" class="primary-btn" disable>Explore</a>
             </div>
         </div>
     </div>
@@ -63,8 +63,8 @@
                     <div class="featured__item">
                         <div class="featured__item__pic set-bg" data-setbg="@item.ProImage">
                             <ul class="featured__item__pic__hover">
-                                <li><a onclick="showFavotiteToast();"><i class="fa fa-heart"></i></a></li>
-                                <li><a onclick="showSuccessToast();"><i class="fa fa-shopping-cart"></i></a></li>
+                                <li><a class="error" data-product-id="@item.ProId"><i class="fa fa-heart"></i></a></li>
+                                <li><a class="success" data-product-id="@item.ProId"><i class="fa fa-shopping-cart"></i></a></li>
                             </ul>
                         </div>
                         <div class="featured__item__text">

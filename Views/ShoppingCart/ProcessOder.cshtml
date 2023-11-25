@@ -2,8 +2,9 @@
 @{
     ViewBag.Title = "Success";
 }
+<div class="container text-center py-5 fs1">
 
-<h2 class="py-5 text-center">Đã checkout thành công :)</h2>
-
-@Html.ActionLink("Back to home", "Index", "Home", null, new { @class = "text-center" })
+    <h2>Đã checkout thành công :)</h2>
+    <a href="@Url.Action("Index", "Home")">Back to home</a>
+</div>
 

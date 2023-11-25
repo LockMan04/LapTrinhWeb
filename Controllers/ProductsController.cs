@@ -10,28 +10,33 @@ namespace New_Project_MVC.Controllers
 {
     public class ProductsController : Controller
     {
+        ProductDbContext dbContext = new ProductDbContext();
 
         // GET: Products
         public ActionResult Index(int categoryId = 1)
         {
-            ProductDbContext dbContext = new ProductDbContext();
             List<Product_Category> listProducts = dbContext.Product_Category.ToList();
             return View(listProducts);
         }
 
         public ActionResult Sale()
         {
-            ProductDbContext dbContext = new ProductDbContext();
             List<Product_Category> listProducts = dbContext.Product_Category.ToList();
             return View(listProducts);
         }
 
         public ActionResult Details(int id)
         {
-            ProductDbContext dbContext = new ProductDbContext();
             Product product = dbContext.Products.Include(c => c.Category).FirstOrDefault(x => x.ProId == id);
             return View(product);
         }
+
+        //public ActionResult ProductsByCategory(int categoryId)
+        //{
+        //    List<Product_Category> listProducts = dbContext.Product_Category.ToList();
+        //    return View(listProducts);
+        //}
+
 
     }
 }

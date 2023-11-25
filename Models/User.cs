@@ -11,11 +11,17 @@ namespace MyProject_MVC.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class User
     {
         public int UserId { get; set; }
+        [Display(Name= "Tên người dùng")]
         public string UserName { get; set; }
+        [Display(Name = "Email")]
+        public string UserEmail { get; set; }
+        [Display(Name = "Mật khẩu")]
+        [DataType(DataType.Password)]
         public string UserPassword { get; set; }
     }
 }

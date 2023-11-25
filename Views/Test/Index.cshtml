@@ -1,0 +1,59 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = null;
+}
+<!-- Thêm nút để kích hoạt yêu cầu Ajax -->
+<button class="addToCartButton" data-product-id="123">Thêm vào giỏ hàng</button>
+<div>Số lượng trong giỏ hàng: <span id="cartItemCount">0</span></div>
+
+<!-- Bao gồm thư viện jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+<!-- Thêm JavaScript để xử lý yêu cầu Ajax -->
+<script>
+    $(document).ready(function () {
+        $(".addToCartButton").click(function () {
+            var productId = $(this).data("product-id");
+
+            // Tạo yêu cầu Ajax đến phương thức action trong controller
+            $.ajax({
+                url: '@Url.Action("AddToCart", "Test")',
+                type: 'POST',
+                data: { productId: productId, quantity: 1 },
+                success: function (result) {
+                    if (result.success) {
+                        alert(result.message); // Hiển thị thông báo thành công
+                    } else {
+                        alert("Không thể thêm sản phẩm vào giỏ hàng");
+                    }
+                },
+                error: function () {
+                    alert("Đã xảy ra lỗi trong quá trình yêu cầu Ajax");
+                }
+            });
+        });
+    });
+
+    // Thêm JavaScript để lấy và hiển thị số lượng giỏ hàng
+$(document).ready(function () {
+    function updateCartItemCount() {
+        // Tạo yêu cầu Ajax đến phương thức action trong controller để lấy số lượng
+        $.ajax({
+            url: '@Url.Action("GetCartItemCount", "Test")',
+            type: 'GET',
+            success: function (itemCount) {
+                // Cập nhật giao diện người dùng với số lượng mới
+                $("#cartItemCount").text(itemCount);
+            },
+            error: function () {
+                // Xử lý lỗi nếu cần thiết
+            }
+        });
+    }
+
+    // Gọi hàm cập nhật khi trang được tải
+    updateCartItemCount();
+});
+
+</script>
