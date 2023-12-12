@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<MyProject_MVC.Models.Product_Category>
+@using MyProject_MVC.Models
 @{
     ViewBag.Title = "Home";
 }
@@ -46,12 +47,11 @@
                 <div class="featured__controls">
                     <ul>
                         <li class="active" data-filter="*">All</li>
-                        <li data-filter=".Hoodies">Hoodies & Sweatshirts</li>
-                        <li data-filter=".Shorts">Shorts</li>
-                        <li data-filter=".Jackets">Jackets</li>
-                        <li data-filter=".Tracksuits">Tracksuits</li>
-                        <li data-filter=".Shoes">Shoes</li>
-                        <li data-filter=".Socks">Socks</li>
+                        @foreach (Category cat in Common.GetCategories().Skip(1))
+                        {
+
+                            <li data-filter=".@cat.CatName">@cat.CatName</li>
+                        }
                     </ul>
                 </div>
             </div>

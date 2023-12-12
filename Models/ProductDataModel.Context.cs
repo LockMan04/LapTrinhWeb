@@ -25,6 +25,7 @@ namespace MyProject_MVC.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Blog> Blogs { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<OrderDetail> OrderDetails { get; set; }

@@ -1,6 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="ModelsStoreContainer" CdmEntityContainer="ProductDbContext">
+    <EntitySetMapping Name="Blogs">
+      <EntityTypeMapping TypeName="Models.Blog">
+        <MappingFragment StoreEntitySet="Blog">
+          <ScalarProperty Name="SummaryContent" ColumnName="SummaryContent" />
+          <ScalarProperty Name="BlogAvata" ColumnName="BlogAvata" />
+          <ScalarProperty Name="BlogId" ColumnName="BlogId" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Content" ColumnName="Content" />
+          <ScalarProperty Name="AuthorId" ColumnName="AuthorId" />
+          <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="Categories">
       <EntityTypeMapping TypeName="Models.Category">
         <MappingFragment StoreEntitySet="Category">
@@ -12,6 +25,7 @@
     <EntitySetMapping Name="Orders">
       <EntityTypeMapping TypeName="Models.Order">
         <MappingFragment StoreEntitySet="Order">
+          <ScalarProperty Name="CustomerNote" ColumnName="CustomerNote" />
           <ScalarProperty Name="OrderId" ColumnName="OrderId" />
           <ScalarProperty Name="OrderName" ColumnName="OrderName" />
           <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />

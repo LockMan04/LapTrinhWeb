@@ -4,7 +4,19 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Models.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Models.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Blog">
+          <Key>
+            <PropertyRef Name="BlogId" />
+          </Key>
+          <Property Name="BlogId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="255" />
+          <Property Name="SummaryContent" Type="nvarchar" MaxLength="1000" />
+          <Property Name="BlogAvata" Type="nvarchar" MaxLength="255" />
+          <Property Name="Content" Type="ntext" />
+          <Property Name="AuthorId" Type="int" />
+          <Property Name="CreatedAt" Type="datetime" />
+        </EntityType>
         <EntityType Name="Category">
           <Key>
             <PropertyRef Name="CategoryId" />
@@ -25,6 +37,7 @@
           <Property Name="CustomerPhone" Type="nvarchar" MaxLength="15" />
           <Property Name="CustomerEmail" Type="nvarchar" MaxLength="100" />
           <Property Name="CustomerAddress" Type="nvarchar" MaxLength="250" />
+          <Property Name="CustomerNote" Type="nvarchar" MaxLength="1000" />
         </EntityType>
         <EntityType Name="OrderDetail">
           <Key>
@@ -71,6 +84,18 @@ warning 6002: The table/view 'Nike.dbo.Product_Category' does not have a primary
           <Property Name="CategoryId" Type="int" Nullable="false" />
           <Property Name="CatName" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <Association Name="FK__Blog__AuthorId__267ABA7A">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Blog" Type="Self.Blog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Blog">
+              <PropertyRef Name="AuthorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__OrderDeta__Order__1920BF5C">
           <End Role="Order" Type="Self.Order" Multiplicity="1" />
           <End Role="OrderDetail" Type="Self.OrderDetail" Multiplicity="*" />
@@ -108,6 +133,7 @@ warning 6002: The table/view 'Nike.dbo.Product_Category' does not have a primary
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="ModelsStoreContainer">
+          <EntitySet Name="Blog" EntityType="Self.Blog" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrderDetail" EntityType="Self.OrderDetail" Schema="dbo" store:Type="Tables" />
@@ -124,6 +150,10 @@ warning 6002: The table/view 'Nike.dbo.Product_Category' does not have a primary
     [Product_Category].[CatName] AS [CatName]
     FROM [dbo].[Product_Category] AS [Product_Category]</DefiningQuery>
           </EntitySet>
+          <AssociationSet Name="FK__Blog__AuthorId__267ABA7A" Association="Self.FK__Blog__AuthorId__267ABA7A">
+            <End Role="User" EntitySet="User" />
+            <End Role="Blog" EntitySet="Blog" />
+          </AssociationSet>
           <AssociationSet Name="FK__OrderDeta__Order__1920BF5C" Association="Self.FK__OrderDeta__Order__1920BF5C">
             <End Role="Order" EntitySet="Order" />
             <End Role="OrderDetail" EntitySet="OrderDetail" />
@@ -137,11 +167,23 @@ warning 6002: The table/view 'Nike.dbo.Product_Category' does not have a primary
             <End Role="Product" EntitySet="Product" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Models" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Blog">
+          <Key>
+            <PropertyRef Name="BlogId" />
+          </Key>
+          <Property Name="BlogId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AuthorId" Type="Int32" />
+          <Property Name="CreatedAt" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="User" Relationship="Self.FK__Blog__AuthorId__1CF15040" FromRole="Blog" ToRole="User" />
+          <Property Name="BlogAvata" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="SummaryContent" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+        </EntityType>
         <EntityType Name="Category">
           <Key>
             <PropertyRef Name="CategoryId" />
@@ -164,6 +206,7 @@ warning 6002: The table/view 'Nike.dbo.Product_Category' does not have a primary
           <Property Name="CustomerEmail" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="CustomerAddress" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="OrderDetails" Relationship="Self.FK__OrderDeta__Order__1920BF5C" FromRole="Order" ToRole="OrderDetail" />
+          <Property Name="CustomerNote" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="OrderDetail">
           <Key>
@@ -198,6 +241,7 @@ warning 6002: The table/view 'Nike.dbo.Product_Category' does not have a primary
           <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="UserEmail" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="UserPassword" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Blogs" Relationship="Self.FK__Blog__AuthorId__1CF15040" FromRole="User" ToRole="Blog" />
         </EntityType>
         <EntityType Name="Product_Category">
           <Key>
@@ -212,6 +256,18 @@ warning 6002: The table/view 'Nike.dbo.Product_Category' does not have a primary
           <Property Name="CategoryId" Type="Int32" Nullable="false" />
           <Property Name="CatName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
+        <Association Name="FK__Blog__AuthorId__1CF15040">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Blog" Type="Self.Blog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Blog">
+              <PropertyRef Name="AuthorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Product__Categor__164452B1">
           <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
           <End Role="Product" Type="Self.Product" Multiplicity="*" />
@@ -249,12 +305,17 @@ warning 6002: The table/view 'Nike.dbo.Product_Category' does not have a primary
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="ProductDbContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Blogs" EntityType="Self.Blog" />
           <EntitySet Name="Categories" EntityType="Self.Category" />
           <EntitySet Name="Orders" EntityType="Self.Order" />
           <EntitySet Name="OrderDetails" EntityType="Self.OrderDetail" />
           <EntitySet Name="Products" EntityType="Self.Product" />
           <EntitySet Name="Users" EntityType="Self.User" />
           <EntitySet Name="Product_Category" EntityType="Self.Product_Category" />
+          <AssociationSet Name="FK__Blog__AuthorId__1CF15040" Association="Self.FK__Blog__AuthorId__1CF15040">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Blog" EntitySet="Blogs" />
+          </AssociationSet>
           <AssociationSet Name="FK__Product__Categor__164452B1" Association="Self.FK__Product__Categor__164452B1">
             <End Role="Category" EntitySet="Categories" />
             <End Role="Product" EntitySet="Products" />
@@ -274,6 +335,19 @@ warning 6002: The table/view 'Nike.dbo.Product_Category' does not have a primary
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="ModelsStoreContainer" CdmEntityContainer="ProductDbContext">
+          <EntitySetMapping Name="Blogs">
+            <EntityTypeMapping TypeName="Models.Blog">
+              <MappingFragment StoreEntitySet="Blog">
+                <ScalarProperty Name="SummaryContent" ColumnName="SummaryContent" />
+                <ScalarProperty Name="BlogAvata" ColumnName="BlogAvata" />
+                <ScalarProperty Name="BlogId" ColumnName="BlogId" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="AuthorId" ColumnName="AuthorId" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Categories">
             <EntityTypeMapping TypeName="Models.Category">
               <MappingFragment StoreEntitySet="Category">
@@ -285,6 +359,7 @@ warning 6002: The table/view 'Nike.dbo.Product_Category' does not have a primary
           <EntitySetMapping Name="Orders">
             <EntityTypeMapping TypeName="Models.Order">
               <MappingFragment StoreEntitySet="Order">
+                <ScalarProperty Name="CustomerNote" ColumnName="CustomerNote" />
                 <ScalarProperty Name="OrderId" ColumnName="OrderId" />
                 <ScalarProperty Name="OrderName" ColumnName="OrderName" />
                 <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />

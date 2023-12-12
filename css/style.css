@@ -2685,6 +2685,7 @@ li > .active {
         height: 92px;
         width: 92px;
         border-radius: 50%;
+        object-fit: cover;
     }
 
 .blog__details__author__text {

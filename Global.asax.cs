@@ -1,3 +1,4 @@
+using MyProject_MVC.Controllers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,5 +15,5 @@ namespace MyProject_MVC
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
         }
-    }
+      }
 }

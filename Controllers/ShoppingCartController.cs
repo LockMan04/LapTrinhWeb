@@ -1,11 +1,9 @@
-﻿using System;
+﻿using MyProject_MVC.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using System.Data.Entity;
-using MyProject_MVC.Models;
 
 namespace MyProject_MVC.Controllers
 {
@@ -17,6 +15,7 @@ namespace MyProject_MVC.Controllers
         public ActionResult Index()
         {
             int totalQuantity = 0;
+            Session["TotalQuantity"] = 0;
             List<Cart> cartItems = new List<Cart>();
             totalQuantity = cartItems.Sum(item => item.Quantity);
             ViewBag.CartItemCount = totalQuantity;
@@ -47,6 +46,8 @@ namespace MyProject_MVC.Controllers
                     ListCart[check].Quantity++;
                 Session[strCart] = ListCart;
             }
+            int totalQuantity = ((List<Cart>)Session[strCart]).Sum(cart => cart.Quantity);
+            Session["TotalQuantity"] = totalQuantity;
             return RedirectToAction("Index", "ShoppingCart");
         }
 
@@ -82,17 +83,21 @@ namespace MyProject_MVC.Controllers
         }
 
         [HttpPost]
-        public ActionResult UpdateCart(FormCollection field)
+        public ActionResult UpdateCart(FormCollection form)
         {
-            string[] quantities = field.GetValues("quantity");
-            List<Cart> ListCart = (List<Cart>)Session[strCart];
-            for (int i = 0; i < ListCart.Count; i++)
+            string[] quantities = form.GetValues("quantity");
+            List<Cart> listCart = (List<Cart>)Session["Cart"];
+
+            for (int i = 0; i < listCart.Count; i++)
             {
-                ListCart[i].Quantity = Convert.ToInt32(quantities[i]);
+                listCart[i].Quantity = Convert.ToInt32(quantities[i]);
             }
-            Session[strCart] = ListCart;
+
+            Session["Cart"] = listCart;
+
             return RedirectToAction("Index");
         }
+
 
         public ActionResult ClearCart()
         {
@@ -117,6 +122,7 @@ namespace MyProject_MVC.Controllers
                 CustomerPhone = field["cusPhone"],
                 CustomerEmail = field["cusEmail"],
                 CustomerAddress = field["cusAddress"],
+                CustomerNote = field["cusNote"],
                 OrderDate = DateTime.Now,
                 PaymentType = "Cash",
                 Status = "Processing"

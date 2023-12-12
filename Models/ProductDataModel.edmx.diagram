@@ -4,13 +4,15 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="47909358e1f4495f994b7cef8a67c845" Name="Diagram1">
+      <Diagram DiagramId="7c1a30d452f4401dac7f44acd703606d" Name="Diagram1" ZoomLevel="86">
+        <EntityTypeShape EntityType="Models.Blog" Width="1.5" PointX="8" PointY="4.875" IsExpanded="true" />
         <EntityTypeShape EntityType="Models.Category" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="Models.Order" Width="1.5" PointX="3" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Models.Order" Width="1.5" PointX="0.5" PointY="4.125" IsExpanded="true" />
         <EntityTypeShape EntityType="Models.OrderDetail" Width="1.5" PointX="5.25" PointY="1.125" IsExpanded="true" />
         <EntityTypeShape EntityType="Models.Product" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="Models.User" Width="1.5" PointX="5.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Models.User" Width="1.5" PointX="5.75" PointY="5" IsExpanded="true" />
         <EntityTypeShape EntityType="Models.Product_Category" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="Models.FK__Blog__AuthorId__1CF15040" ManuallyRouted="false" />
         <AssociationConnector Association="Models.FK__Product__Categor__164452B1" ManuallyRouted="false" />
         <AssociationConnector Association="Models.FK__OrderDeta__Order__1920BF5C" ManuallyRouted="false" />
         <AssociationConnector Association="Models.FK__OrderDeta__Produ__1A14E395" ManuallyRouted="false" />

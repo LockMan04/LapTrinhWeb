@@ -1,5 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="Models.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Blog">
+    <Key>
+      <PropertyRef Name="BlogId" />
+    </Key>
+    <Property Name="BlogId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Title" Type="nvarchar" MaxLength="255" />
+    <Property Name="SummaryContent" Type="nvarchar" MaxLength="1000" />
+    <Property Name="BlogAvata" Type="nvarchar" MaxLength="255" />
+    <Property Name="Content" Type="ntext" />
+    <Property Name="AuthorId" Type="int" />
+    <Property Name="CreatedAt" Type="datetime" />
+  </EntityType>
   <EntityType Name="Category">
     <Key>
       <PropertyRef Name="CategoryId" />
@@ -20,6 +32,7 @@
     <Property Name="CustomerPhone" Type="nvarchar" MaxLength="15" />
     <Property Name="CustomerEmail" Type="nvarchar" MaxLength="100" />
     <Property Name="CustomerAddress" Type="nvarchar" MaxLength="250" />
+    <Property Name="CustomerNote" Type="nvarchar" MaxLength="1000" />
   </EntityType>
   <EntityType Name="OrderDetail">
     <Key>
@@ -66,6 +79,18 @@ warning 6002: The table/view 'Nike.dbo.Product_Category' does not have a primary
     <Property Name="CategoryId" Type="int" Nullable="false" />
     <Property Name="CatName" Type="nvarchar" MaxLength="50" />
   </EntityType>
+  <Association Name="FK__Blog__AuthorId__267ABA7A">
+    <End Role="User" Type="Self.User" Multiplicity="0..1" />
+    <End Role="Blog" Type="Self.Blog" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Blog">
+        <PropertyRef Name="AuthorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK__OrderDeta__Order__1920BF5C">
     <End Role="Order" Type="Self.Order" Multiplicity="1" />
     <End Role="OrderDetail" Type="Self.OrderDetail" Multiplicity="*" />
@@ -103,6 +128,7 @@ warning 6002: The table/view 'Nike.dbo.Product_Category' does not have a primary
     </ReferentialConstraint>
   </Association>
   <EntityContainer Name="ModelsStoreContainer">
+    <EntitySet Name="Blog" EntityType="Self.Blog" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="OrderDetail" EntityType="Self.OrderDetail" Schema="dbo" store:Type="Tables" />
@@ -119,6 +145,10 @@ warning 6002: The table/view 'Nike.dbo.Product_Category' does not have a primary
     [Product_Category].[CatName] AS [CatName]
     FROM [dbo].[Product_Category] AS [Product_Category]</DefiningQuery>
     </EntitySet>
+    <AssociationSet Name="FK__Blog__AuthorId__267ABA7A" Association="Self.FK__Blog__AuthorId__267ABA7A">
+      <End Role="User" EntitySet="User" />
+      <End Role="Blog" EntitySet="Blog" />
+    </AssociationSet>
     <AssociationSet Name="FK__OrderDeta__Order__1920BF5C" Association="Self.FK__OrderDeta__Order__1920BF5C">
       <End Role="Order" EntitySet="Order" />
       <End Role="OrderDetail" EntitySet="OrderDetail" />

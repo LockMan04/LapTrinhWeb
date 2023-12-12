@@ -16,7 +16,7 @@
                             <div class="section-title product__discount__title">
                                 <h2>@Model.Count() Products found</h2>
                             </div>
-                            <div class="row">
+                            <div class="row" id="result">
                                 @foreach (var item in Model)
                                 {
                                     <div class="col-lg-4 mb-4">
@@ -50,3 +50,17 @@ else
         <h2 class="text-center my-4">Sorry, no products found :( </h2>
     </div>
 }
+@*@section Scripts{
+    <script>
+        $(#search).keyup(function () {
+            var search = $(#search).val();
+            $.ajax({
+                url: "Home/Search",
+                data: { Name: search },
+                success: function (response) {
+                    $("div#result").html(response);
+                }
+            });
+        });
+    </script>
+}*@

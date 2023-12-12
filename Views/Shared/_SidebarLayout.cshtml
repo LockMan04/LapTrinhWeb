@@ -1,12 +1,11 @@
-﻿@model IEnumerable<MyProject_MVC.Models.Product_Category>
+﻿@using MyProject_MVC.Models 
 <div class="sidebar">
     <div class="sidebar__item">
         <h4>Department</h4>
         <ul>
-            @foreach (var item in Model)
+            @foreach (Category item in Common.GetCategories().Skip(1))
             {
-                @*<li><a href="@Url.Action("ProductsByCategory", "Products", new {id = item.CategoryId}, null)">@item.CatName</a></li>*@
-
+                <li><a href="@Url.Action("Index", "Products", new {id = item.CategoryId}, null)">@item.CatName</a></li>
             }
         </ul>
     </div>

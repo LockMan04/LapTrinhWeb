@@ -1,0 +1,26 @@
+﻿@model IEnumerable<MyProject_MVC.Models.Blog>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="form-group col-6">
+    @Html.ActionLink("Create new", "Create", null, new { @class = "btn btn-primary" })
+</div>
+<div class="container">
+    <div class="row justify-content-between">
+        @foreach (var i in Model)
+        {
+            <div class="card" style="width: 18rem;">
+                <img src="@i.BlogAvata" class="card-img-top mt-2" />
+                <div class="card-body">
+                    <h5 class="card-title">@i.Title</h5>
+                    <p class="card-text">@i.SummaryContent</p>
+                    @Html.ActionLink("Edit", "Edit", "Blogs", new { id = i.BlogId }, new { @class = "btn btn-primary" })
+                    @Html.ActionLink("Delete", "Delete", "Blogs", new { id = i.BlogId }, new { @class = "btn btn-danger" })
+                </div>
+            </div>
+        }
+    </div>
+</div>

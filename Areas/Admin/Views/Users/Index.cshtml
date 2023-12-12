@@ -5,11 +5,14 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+<div class="d-grid gap-2 col-6 my-2">
+    @Html.ActionLink("Create", "Create", null, new { @class = "p-2 text-dark btn btn-primary w-25" })
+</div>
 <table class="table">
     <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.UserId)
+        </th>
         <th>
             @Html.DisplayNameFor(model => model.UserName)
         </th>
@@ -19,11 +22,14 @@
         <th>
             @Html.DisplayNameFor(model => model.UserPassword)
         </th>
-        <th></th>
+        <th>Action</th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserId)
+        </td>
         <td>
             @Html.DisplayFor(modelItem => item.UserName)
         </td>
@@ -34,9 +40,9 @@
             @Html.DisplayFor(modelItem => item.UserPassword)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.UserId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.UserId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.UserId })
+            @Html.ActionLink("Edit", "Edit", new { id = item.UserId }, new { @class = "btn btn-primary" })
+            @Html.ActionLink("Details", "Details", new { id = item.UserId }, new { @class = "btn btn-info my-2" })
+            @Html.ActionLink("Delete", "Delete", new { id = item.UserId }, new { @class = "btn btn-danger" })
         </td>
     </tr>
 }

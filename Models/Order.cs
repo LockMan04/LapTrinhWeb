@@ -29,6 +29,7 @@ namespace MyProject_MVC.Models
         public string CustomerPhone { get; set; }
         public string CustomerEmail { get; set; }
         public string CustomerAddress { get; set; }
+        public string CustomerNote { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }

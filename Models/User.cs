@@ -11,17 +11,21 @@ namespace MyProject_MVC.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class User
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public User()
+        {
+            this.Blogs = new HashSet<Blog>();
+        }
+    
         public int UserId { get; set; }
-        [Display(Name= "Tên người dùng")]
         public string UserName { get; set; }
-        [Display(Name = "Email")]
         public string UserEmail { get; set; }
-        [Display(Name = "Mật khẩu")]
-        [DataType(DataType.Password)]
         public string UserPassword { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Blog> Blogs { get; set; }
     }
 }

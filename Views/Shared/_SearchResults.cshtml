@@ -1,0 +1,16 @@
+﻿@model List<MyProject_MVC.Models.Product>
+
+@if (Model != null && Model.Count > 0)
+{
+    <h3>Search Results:</h3>
+    <ul>
+        @foreach (var product in Model)
+        {
+            <li>@product.ProName</li>
+        }
+    </ul>
+}
+else
+{
+    <p>No results found.</p>
+}

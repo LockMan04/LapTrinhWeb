@@ -10,6 +10,7 @@ namespace MyProject_MVC.Controllers
     public class HomeController : Controller
     {
         // GET: Home
+        [HandleError]
         public ActionResult Index()
         {
             ProductDbContext dbContext = new ProductDbContext();

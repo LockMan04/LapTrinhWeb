@@ -1,0 +1,41 @@
+﻿@model IEnumerable<MyProject_MVC.Models.Product_Category>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<table class="table">
+    <tr>
+        <th>
+            Ảnh
+        </th>
+        <th>
+            Đường dẫn
+        </th>
+        <th>
+            Loại
+        </th>
+        <th>
+            TypeOf
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td class="gallery">
+                <img class="img-thumbnail clickable-image" src="@item.ProImage" ) width="100px" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProImage)
+            </td>
+            <td>
+                @Html.DisplayFor(modelIten => item.CatName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TypeOf)
+            </td>
+        </tr>
+    }
+
+</table>

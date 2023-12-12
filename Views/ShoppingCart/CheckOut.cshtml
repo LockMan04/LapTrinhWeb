@@ -6,162 +6,108 @@
 @{
     if (Session["Cart"] != null)
     {
-        using (Html.BeginForm("UpdateCart", "ShoppingCart", FormMethod.Post))
-        {
-            <section class="shoping-cart spad">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="shoping__cart__table">
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th class="shoping__product">Name</th>
-                                            <th>Price</th>
-                                            <th>Quantity</th>
-                                            <th>Total</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach (var cart in (List<Cart>)Session["Cart"])
-                                        {
-                                            double p = Convert.ToDouble(cart.Product.ProPrice);
-                                            int q = Convert.ToInt32(cart.Quantity);
-                                            double subtotal = p * q;
-                                            <tr>
-                                                <td class="shoping__cart__item">
-                                                    <img src="@cart.Product.ProImage" alt="" height="100px" width="100px">
-                                                    <h5>@cart.Product.ProName</h5>
-                                                </td>
-                                                <td class="shoping__cart__price">
-                                                    @(cart.Product.ProPrice)đ
-                                                </td>
-                                                <td class="shoping__cart__quantity">
-                                                    <div class="quantity">
-                                                        <div class="pro-qty">
-                                                            <input type="number" name="quatily" class="quantily" value="@cart.Quantity" />
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td class="shoping__cart__total">
-                                                    @(subtotal).000đ
-                                                </td>
-                                                <td class="shoping__cart__item__close">
-                                                    @Html.ActionLink("Delete", "RemoveItem", "ShoppingCart", new { Id = cart.Product.ProId }, new { onclick = "return confirm('Bạn có chắc muốn xóa sản phẩm này ?');" })
-                                                </td>
-                                            </tr>
-                                        }
-                                        <tr>
-                                            @{
-                                                List<Cart> temp = (List<Cart>)Session["Cart"];
-                                                var total = temp.Sum(x => x.Quantity * x.Product.ProPrice);
-                                            }
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="shoping__cart__btns">
-                                <a href="@Url.Action("Index", "Products")" class="primary-btn cart-btn text-light" style="background-color: #0099e6;">CONTINUE SHOPPING</a>
-                                <input type="submit" value="Update Cart" class="primary-btn cart-btn cart-btn-right" />
-                            </div>
-                        </div>
-                        @*<div class="col-lg-6">
-                            <div class="shoping__continue">
-                                <div class="shoping__discount">
-                                    <h5>Discount Codes</h5>
-                                    <form action="#">
-                                        <input type="text" placeholder="Enter your coupon code" style="border: 1px solid #ccc; padding: 10px; min-width: 250px;">
-                                        <button type="submit" class="site-btn">APPLY COUPON</button>
-                                    </form>
+        double p;
+        int q;
+        double subtotal = 0;
+        <section class="checkout spad">
+            <div class="container">
+                <div class="checkout__form">
+                    <h4>Billing Details</h4>
+                    @using (Html.BeginForm("ProcessOder", "ShoppingCart", FormMethod.Post, new { id = "customer-form" }))
+                    {
+                        <div class="row">
+                            <div class="col-lg-8 col-md-6">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="checkout__input">
+                                            <p>Name<span>*</span></p>
+                                            <input type="text" name="CusName">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="checkout__input">
+                                            <p>Phone<span>*</span></p>
+                                            <input type="tel" name="CusPhone">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="checkout__input">
+                                    <p>Email<span>*</span></p>
+                                    <input type="text" name="CusEmail" />
+                                </div>
+                                <div class="checkout__input">
+                                    <p>Address<span>*</span></p>
+                                    <input type="text" name="CusAddress" class="checkout__input__add">
+                                </div>
+                                <div class="checkout__input__checkbox">
+                                    <label for="diff-acc">
+                                        Ship to a different address?
+                                        <input type="checkbox" id="diff-acc">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </div>
+                                <div class="checkout__input">
+                                    <p>Order notes<span>*</span></p>
+                                    <input type="text" name="cusNote"
+                                           placeholder="Notes about your order, e.g. special notes for delivery.">
                                 </div>
                             </div>
-                        </div>*@
-                        <div class="col-lg-6 centered">
-                            <div class="shoping__checkout">
-                                <h5>Cart Total</h5>
-                                <ul>
-                                    <li>Total <span>@(total)đ</span></li>
-                                </ul>
-                                <a href="@Url.Action("CheckOut", "ShoppingCart")" class="primary-btn">PROCEED TO CHECKOUT</a>
+                            <div class="col-lg-4 col-md-6">
+                                <div class="checkout__order">
+                                    <h4>Your Order</h4>
+                                    <div class="checkout__order__products">Products <span>Total</span></div>
+                                    <ul>
+                                        @foreach (var cart in (List<Cart>)Session["Cart"])
+                                        {
+                                            p = Convert.ToDouble(cart.Product.ProPrice);
+                                            q = Convert.ToInt32(cart.Quantity);
+                                            double itemTotal = p * q;
+                                            subtotal += itemTotal;
+
+                                            <li>@cart.Product.ProName <span>@(cart.Product.ProPrice * cart.Quantity)</span></li>
+                                        }
+                                        @{
+                                            List<Cart> temp = (List<Cart>)Session["Cart"];
+                                            var total = temp.Sum(x => x.Quantity * x.Product.ProPrice);
+                                        }
+                                    </ul>
+                                    <div class="checkout__order__subtotal">Subtotal <span>@(subtotal).000đ</span></div>
+                                    <div class="checkout__order__total">VAT <span>10%</span></div>
+                                    <div class="checkout__order__total">Total <span>@(total = total + total*10/100)đ </span></div>
+                                    <p>
+                                        Lorem ipsum dolor sit amet, consectetur adip elit, sed do eiusmod tempor incididunt
+                                        ut labore et dolore magna aliqua.
+                                    </p>
+                                    <div class="checkout__input__checkbox">
+                                        <label for="payment">
+                                            Check Payment
+                                            <input type="checkbox" id="payment">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </div>
+                                    <div class="checkout__input__checkbox">
+                                        <label for="paypal">
+                                            Paypal
+                                            <input type="checkbox" id="paypal">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </div>
+                                    <button type="submit" class="site-btn">PLACE ORDER</button>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </section>
-        }
-
-        <h2 class="text-center">Customer Information</h2>
-        using (Html.BeginForm("ProcessOder", "ShoppingCart", FormMethod.Post, new { id = "customer-form" }))
-        {
-            <div class="container-sm">
-
-                <div class="form w-50 centered">
-                    <hr />
-                    <div class="form-group">
-                        <label class="ml-3">Customer Name</label>
-                        <div class="col-md-10">
-                            <input type="text" name="cusName" class="form-control" />
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="ml-3">Customer Phone</label>
-                        <div class="col-md-10">
-                            <input type="text" name="cusPhone" class="form-control" />
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="ml-3">Customer Email</label>
-                        <div class="col-md-10">
-                            <input type="text" name="cusEmail" class="form-control" />
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="ml-3">Customer Address</label>
-                        <div class="col-md-10">
-                            <input type="text" name="cusAddress" class="form-control" />
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <div class="col-md-10 col-md-offset-2">
-                            <input type="submit" value="Process Order" class="btn btn-danger" />
-                        </div>
-                    </div>
+                    }
                 </div>
             </div>
-        }
+        </section>
     }
-
-
-
     else
     {
-        <h4 class="text-center py-4">No Item In Shopping Cart in your !</h4>
+        <div class="position-relative w-100" style="padding: 170px 0">
+            <div class="position-absolute" style=" top: 50%; left: 50%; transform: translate(-50%, -50%);">
+                <img src="~/images/home/empty-cart.png" width="400" />
+                <h4 class="text-center py-4">No Item In Shopping Cart in your !</h4>
+            </div>
+        </div>
     }
 }
-<script type="text/javascript">
-    $("#customer-form").validate({
-        rules: {
-            cusName: {
-                required: true
-            },
-            cusPhone: {
-                required: true
-            },
-            cusEmail: {
-                required: true
-            },
-            cusAddress: {
-                required: true
-            }
-        }
-    });
-</script>
-
-
-
-

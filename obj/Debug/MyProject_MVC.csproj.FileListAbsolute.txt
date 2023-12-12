@@ -74,3 +74,7 @@ C:\Users\Tonnnn\Documents\LapTrinhWeb\MyProject_MVC\obj\Debug\MyProject_MVC.cspr
 C:\Users\Tonnnn\Documents\LapTrinhWeb\MyProject_MVC\obj\Debug\MyProject_MVC.csproj.CopyComplete
 C:\Users\Tonnnn\Documents\LapTrinhWeb\MyProject_MVC\obj\Debug\MyProject_MVC.dll
 C:\Users\Tonnnn\Documents\LapTrinhWeb\MyProject_MVC\obj\Debug\MyProject_MVC.pdb
+C:\Users\Tonnnn\Documents\LapTrinhWeb\MyProject_MVC\bin\PagedList.dll
+C:\Users\Tonnnn\Documents\LapTrinhWeb\MyProject_MVC\bin\PagedList.Mvc.dll
+C:\Users\Tonnnn\Documents\LapTrinhWeb\MyProject_MVC\bin\PagedList.xml
+C:\Users\Tonnnn\Documents\LapTrinhWeb\MyProject_MVC\bin\PagedList.Mvc.xml
