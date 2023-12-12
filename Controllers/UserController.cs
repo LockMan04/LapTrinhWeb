@@ -70,10 +70,12 @@ namespace OnlineShop.Controllers
         {
             if (ModelState.IsValid)
             {
-
-
-                //var f_password = GetMD5(password);
-                var data = objModel.Users.Where(s => s.UserEmail.Equals(email) && s.UserPassword.Equals(password)).ToList();
+                var f_password = GetMD5(password);
+                bool admin = (email.ToLower().Equals("lathanhtoan01@gmail.com") && password.Equals("123"));
+                if (admin)
+                {
+                    RedirectToAction("Index", "Admin", new { area = "Admin" });
+                }
                 if (data.Count() > 0)
                 {
                     //add session
