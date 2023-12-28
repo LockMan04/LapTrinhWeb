@@ -9,13 +9,7 @@ namespace MyProject_MVC.Areas.Admin.Controllers
         // GET: Admin/Admin
         public ActionResult Index()
         {
-            //bool test = Session["idUser"] != null;
-            //if (test)
-            //{
             return View();
-            //}
-            //else
-            //{ return RedirectToAction("Login", "Account", new { area = "" }); }
         }
     }
 }

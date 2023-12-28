@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="ProductDbContext-Web.config Connection String" description="ProductDbContext Connection String used in web.config by the application to access the database." defaultValue="metadata=res://*/Models.ProductDataModel.csdl|res://*/Models.ProductDataModel.ssdl|res://*/Models.ProductDataModel.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=THANHTOAN\THANHTOAN;initial catalog=Nike;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework&quot;" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\latha\\OneDrive\\Documents\\LapTrinhWeb\\MyProject_MVC\\LapTrinhWeb\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='ProductDbContext']/@connectionString" />
+  </parameter>
+</parameters>

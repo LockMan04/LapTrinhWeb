@@ -8,7 +8,6 @@ namespace MyProject_MVC.Controllers
 {
     public class ErrorController : Controller
     {
-        [HandleError]
         // Xử lý lỗi 404 - Not Found
         public ActionResult NotFound()
         {

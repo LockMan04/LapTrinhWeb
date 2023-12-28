@@ -1,0 +1,37 @@
+﻿
+@{
+    ViewBag.Title = "Success";
+}
+<div class="container text-center py-5 fs1">
+    <div class="order-success centered"></div>
+    <h2>Đã checkout thành công :)</h2>
+    <p>Sẽ về trang chủ sau <span id="countdown"></span></p>
+    <a href="@Url.Action("Index", "Home")">Back to home</a>
+</div>
+
+<style>
+    .order-success {
+        background-image: url(../images/checkout-succsess.gif);
+        background-position: center;
+        width: 50%;
+        height: 400px;
+        background-size: cover;
+    }
+</style>
+
+<script>
+    function countdownAndRedirect(seconds) {
+        var countdownElement = document.getElementById('countdown');
+        function updateCountdown() {
+            seconds--;
+            countdownElement.textContent = seconds;
+            if (seconds <= 0) {
+                window.location.href = '@Url.Action("Index", "Home")';
+            } else {
+                setTimeout(updateCountdown, 1000);
+            }
+        }
+        updateCountdown();
+    }
+    countdownAndRedirect(10);
+</script>

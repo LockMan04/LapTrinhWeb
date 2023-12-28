@@ -1,0 +1,61 @@
+﻿@model MyProject_MVC.Models.Product
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<center>
+    <h2>Details Item Product</h2>
+</center>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ProName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProImage)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProImage)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProPrice)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProPrice)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TypeOf)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TypeOf)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Category.CatName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Category.CatName)
+        </dd>
+
+    </dl>
+</div>
+<div>
+    <center>
+        @Html.ActionLink("Edit", "Edit", new {id = Model.ProId}, new { @class = "p-2 text-dark btn btn-primary w-25" })
+        @Html.ActionLink("Back to List", "Index", null, new { @class = "p-2 text-dark btn btn-primary w-25" })
+    </center>
+</div>

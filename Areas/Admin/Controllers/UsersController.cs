@@ -20,44 +20,6 @@ namespace MyProject_MVC.Areas.Admin.Controllers
             return View(db.Users.ToList());
         }
 
-        // GET: Admin/Users/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            User user = db.Users.Find(id);
-            if (user == null)
-            {
-                return HttpNotFound();
-            }
-            return View(user);
-        }
-
-        // GET: Admin/Users/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Admin/Users/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "UserId,UserName,UserEmail,UserPassword")] User user)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Users.Add(user);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            return View(user);
-        }
-
         // GET: Admin/Users/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -70,6 +32,7 @@ namespace MyProject_MVC.Areas.Admin.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.RoleId = new SelectList(db.Roles, "RoleId", "RoleName", user.RoleId);
             return View(user);
         }
 
@@ -78,7 +41,7 @@ namespace MyProject_MVC.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "UserId,UserName,UserEmail,UserPassword")] User user)
+        public ActionResult Edit([Bind(Include = "UserId,UserName,UserEmail, Roleid")] User user)
         {
             if (ModelState.IsValid)
             {
@@ -86,33 +49,8 @@ namespace MyProject_MVC.Areas.Admin.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.RoleId = new SelectList(db.Roles, "RoleId", "RoleName", user.RoleId);
             return View(user);
-        }
-
-        // GET: Admin/Users/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            User user = db.Users.Find(id);
-            if (user == null)
-            {
-                return HttpNotFound();
-            }
-            return View(user);
-        }
-
-        // POST: Admin/Users/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            User user = db.Users.Find(id);
-            db.Users.Remove(user);
-            db.SaveChanges();
-            return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)

@@ -30,7 +30,7 @@ public class AccountController : Controller
 
             // Mã hóa mật khẩu trước khi lưu vào cơ sở dữ liệu
             user.UserPassword = GetMD5(user.UserPassword);
-
+            user.RoleId = 1;
             db.Users.Add(user);
             db.SaveChanges();
 
@@ -58,7 +58,7 @@ public class AccountController : Controller
             var data = db.Users.FirstOrDefault(s => s.UserEmail.Equals(user.UserEmail) && s.UserPassword.Equals(f_password));
             if (data != null)
             {
-                bool IsAdmin = (user.UserEmail.ToLower() == "admin@gmail.com" && f_password == GetMD5(user.UserPassword));
+                bool IsAdmin = (user.RoleId == 0);
                 if (IsAdmin)
                 {
                     return RedirectToAction("Index", "Admin", new { area = "Admin" });

@@ -32,5 +32,7 @@ namespace MyProject_MVC.Models
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Product_Category> Product_Category { get; set; }
+        public virtual DbSet<Role> Roles { get; set; }
+        public virtual DbSet<User_Role> User_Role { get; set; }
     }
 }

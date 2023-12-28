@@ -645,7 +645,6 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\ShoppingCartController.cs" />
-    <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -684,7 +683,13 @@
     <Compile Include="Models\Product_Category.cs">
       <DependentUpon>ProductDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Role.cs">
+      <DependentUpon>ProductDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\User.cs">
+      <DependentUpon>ProductDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\User_Role.cs">
       <DependentUpon>ProductDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -712,9 +717,6 @@
     <Content Include="Areas\Admin\Views\Product\Details.cshtml" />
     <Content Include="Areas\Admin\Views\Product\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Admin\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Users\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\Users\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\Users\Details.cshtml" />
     <Content Include="Areas\Admin\Views\Users\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Users\Index.cshtml" />
     <Content Include="Areas\Admin\css\icons\tabler-icons\fonts\tabler-icons.eot" />
@@ -967,18 +969,6 @@
     <Content Include="Areas\Admin\libs\simplebar\LICENSE" />
     <Content Include="Areas\Admin\libs\simplebar\package.json" />
     <Content Include="Areas\Admin\libs\simplebar\README.md" />
-    <Content Include="Areas\Admin\scss\component\_card.scss" />
-    <Content Include="Areas\Admin\scss\component\_reboot.scss" />
-    <Content Include="Areas\Admin\scss\layouts\_header.scss" />
-    <Content Include="Areas\Admin\scss\layouts\_layouts.scss" />
-    <Content Include="Areas\Admin\scss\layouts\_sidebar.scss" />
-    <Content Include="Areas\Admin\scss\pages\_dashboard1.scss" />
-    <Content Include="Areas\Admin\scss\prepros.config" />
-    <Content Include="Areas\Admin\scss\styles.scss" />
-    <Content Include="Areas\Admin\scss\utilities\_background.scss" />
-    <Content Include="Areas\Admin\scss\utilities\_icon-size.scss" />
-    <Content Include="Areas\Admin\scss\variables\_theme-variables.scss" />
-    <Content Include="Areas\Admin\scss\variables\_variables.scss" />
     <Content Include="Areas\Admin\Views\ImageProduct\Index.cshtml" />
     <EntityDeploy Include="Models\ProductDataModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
@@ -993,10 +983,6 @@
     <Content Include="Areas\Admin\Views\Blogs\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_SearchResults.cshtml" />
     <Content Include="Areas\Admin\Views\Product\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Orders\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\Orders\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\Orders\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\Orders\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Orders\Index.cshtml" />
     <None Include="packages.config" />
     <Content Include="Views\_ViewStart.cshtml" />
@@ -1026,7 +1012,8 @@
     <Content Include="Views\Error\InternalServerError.cshtml" />
     <Content Include="Views\Shared\_SearchResults.cshtml" />
     <Content Include="Views\Shared\_ProductItemPartial.cshtml" />
-    <Content Include="Views\Test\GetProducts.cshtml" />
+    <None Include="Properties\PublishProfiles\lockman207-001-site1 - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\lockman207-001-site1 - Web Deploy.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

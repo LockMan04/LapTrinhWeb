@@ -1,0 +1,113 @@
+﻿@using MyProject_MVC.Models
+@{
+    ViewBag.Title = "CheckOut";
+}
+
+@{
+    if (Session["Cart"] != null)
+    {
+        double p;
+        int q;
+        double subtotal = 0;
+        <section class="checkout spad">
+            <div class="container">
+                <div class="checkout__form">
+                    <h4>Billing Details</h4>
+                    @using (Html.BeginForm("ProcessOder", "ShoppingCart", FormMethod.Post, new { id = "customer-form" }))
+                    {
+                        <div class="row">
+                            <div class="col-lg-8 col-md-6">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="checkout__input">
+                                            <p>Name<span>*</span></p>
+                                            <input type="text" name="CusName">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="checkout__input">
+                                            <p>Phone<span>*</span></p>
+                                            <input type="tel" name="CusPhone">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="checkout__input">
+                                    <p>Email<span>*</span></p>
+                                    <input type="text" name="CusEmail" />
+                                </div>
+                                <div class="checkout__input">
+                                    <p>Address<span>*</span></p>
+                                    <input type="text" name="CusAddress" class="checkout__input__add">
+                                </div>
+                                <div class="checkout__input__checkbox">
+                                    <label for="diff-acc">
+                                        Ship to a different address?
+                                        <input type="checkbox" id="diff-acc">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </div>
+                                <div class="checkout__input">
+                                    <p>Order notes<span>*</span></p>
+                                    <input type="text" name="cusNote"
+                                           placeholder="Notes about your order, e.g. special notes for delivery.">
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-6">
+                                <div class="checkout__order">
+                                    <h4>Your Order</h4>
+                                    <div class="checkout__order__products">Products <span>Total</span></div>
+                                    <ul>
+                                        @foreach (var cart in (List<Cart>)Session["Cart"])
+                                        {
+                                            p = Convert.ToDouble(cart.Product.ProPrice);
+                                            q = Convert.ToInt32(cart.Quantity);
+                                            double itemTotal = p * q;
+                                            subtotal += itemTotal;
+
+                                            <li>@cart.Product.ProName <span>@(cart.Product.ProPrice * cart.Quantity)</span></li>
+                                        }
+                                        @{
+                                            List<Cart> temp = (List<Cart>)Session["Cart"];
+                                            var total = temp.Sum(x => x.Quantity * x.Product.ProPrice);
+                                        }
+                                    </ul>
+                                    <div class="checkout__order__subtotal">Subtotal <span>@(subtotal).000đ</span></div>
+                                    <div class="checkout__order__total">VAT <span>10%</span></div>
+                                    <div class="checkout__order__total">Total <span>@(total = total + total*10/100)đ </span></div>
+                                    <p>
+                                        Lorem ipsum dolor sit amet, consectetur adip elit, sed do eiusmod tempor incididunt
+                                        ut labore et dolore magna aliqua.
+                                    </p>
+                                    <div class="checkout__input__checkbox">
+                                        <label for="payment">
+                                            Check Payment
+                                            <input type="checkbox" id="payment">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </div>
+                                    <div class="checkout__input__checkbox">
+                                        <label for="paypal">
+                                            Paypal
+                                            <input type="checkbox" id="paypal">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </div>
+                                    <button type="submit" class="site-btn">PLACE ORDER</button>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </section>
+    }
+    else
+    {
+        <div class="position-relative w-100" style="padding: 170px 0">
+            <div class="position-absolute" style=" top: 50%; left: 50%; transform: translate(-50%, -50%);">
+                <img src="~/images/home/empty-cart.png" width="400" />
+                <h4 class="text-center py-4">No Item In Shopping Cart in your !</h4>
+            </div>
+        </div>
+    }
+}
